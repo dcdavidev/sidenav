@@ -41,10 +41,6 @@
     "build": "tsdown",
     "dev": "tsdown --watch"
   },
-  "peerDependencies": {
-    "jquery": ">=3.0.0",
-    "jquery-ui": ">=1.12.0"
-  },
   "devDependencies": {
     "@dcdavidev/tsconfig": "latest",
     "@types/jquery": "latest",
@@ -52,5 +48,9 @@
     "jquery": "^4.0.0",
     "jquery-ui": "^1.14.2",
     "tsdown": "latest"
+  },
+  "peerDependencies": {
+    "jquery": "^4.0.0",
+    "jquery-ui": "^1.14.0"
   }
 }
