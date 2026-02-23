@@ -14,8 +14,8 @@ Include jQuery and jQuery UI, then:
 
 ```javascript
 $('#sidenav').sidenav({
-  toggler: '#toggle-sidebar',
-  quitter: '.quit-sidebar',
+  toggler: '#toggle-sidenav',
+  quitter: '.quit-sidenav',
 });
 ```
 
