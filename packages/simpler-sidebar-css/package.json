@@ -41,12 +41,13 @@
     "build": "tsdown",
     "dev": "tsdown --watch"
   },
-  "dependencies": {
-    "jquery": "^4.0.0"
+  "peerDependencies": {
+    "jquery": ">=3.0.0"
   },
   "devDependencies": {
     "@dcdavidev/tsconfig": "latest",
     "@types/jquery": "latest",
+    "jquery": "^4.0.0",
     "tsdown": "latest"
   }
 }

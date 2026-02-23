@@ -29,13 +29,9 @@ export interface SimplerSidebarCss3Options {
   };
 }
 
-interface SimplerSidebarCss3Configs
-  extends Required<
-    Omit<
-      SimplerSidebarCss3Options,
-      'toggler' | 'animation' | 'mask' | 'events'
-    >
-  > {
+interface SimplerSidebarCss3Configs extends Required<
+  Omit<SimplerSidebarCss3Options, 'toggler' | 'animation' | 'mask' | 'events'>
+> {
   toggler: string;
   animation: Required<NonNullable<SimplerSidebarCss3Options['animation']>>;
   mask: Required<NonNullable<SimplerSidebarCss3Options['mask']>>;

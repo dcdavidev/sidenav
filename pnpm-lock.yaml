@@ -79,13 +79,6 @@ importers:
         version: 2.8.10
 
   packages/simpler-sidebar:
-    dependencies:
-      jquery:
-        specifier: ^4.0.0
-        version: 4.0.0
-      jquery-ui:
-        specifier: ^1.14.2
-        version: 1.14.2
     devDependencies:
       '@dcdavidev/tsconfig':
         specifier: latest
@@ -96,15 +89,17 @@ importers:
       '@types/jqueryui':
         specifier: latest
         version: 1.12.24
+      jquery:
+        specifier: ^4.0.0
+        version: 4.0.0
+      jquery-ui:
+        specifier: ^1.14.2
+        version: 1.14.2
       tsdown:
         specifier: latest
         version: 0.20.3(synckit@0.11.12)(typescript@5.9.3)
 
   packages/simpler-sidebar-css:
-    dependencies:
-      jquery:
-        specifier: ^4.0.0
-        version: 4.0.0
     devDependencies:
       '@dcdavidev/tsconfig':
         specifier: latest
@@ -112,6 +107,9 @@ importers:
       '@types/jquery':
         specifier: latest
         version: 3.5.33
+      jquery:
+        specifier: ^4.0.0
+        version: 4.0.0
       tsdown:
         specifier: latest
         version: 0.20.3(synckit@0.11.12)(typescript@5.9.3)
