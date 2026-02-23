@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-export interface SideNavOptions {
+export interface SidenavOptions {
   quitter?: string;
   toggler?: string;
   attr?: string;
@@ -28,28 +28,28 @@ export interface SideNavOptions {
   };
 }
 
-interface SideNavConfigs extends Required<
-  Omit<SideNavOptions, 'toggler' | 'animation' | 'mask' | 'events'>
+interface SidenavConfigs extends Required<
+  Omit<SidenavOptions, 'toggler' | 'animation' | 'mask' | 'events'>
 > {
   toggler: string;
-  animation: Required<NonNullable<SideNavOptions['animation']>>;
-  mask: Required<NonNullable<SideNavOptions['mask']>>;
-  events: Required<NonNullable<SideNavOptions['events']>>;
+  animation: Required<NonNullable<SidenavOptions['animation']>>;
+  mask: Required<NonNullable<SidenavOptions['mask']>>;
+  events: Required<NonNullable<SidenavOptions['events']>>;
 }
 
 declare global {
   interface JQuery {
-    sidenav(options?: SideNavOptions): JQuery;
+    sidenav(options?: SidenavOptions): JQuery;
   }
 }
 
-$.fn.sidenav = function (options?: SideNavOptions) {
-  const configs: SideNavConfigs = $.extend(
+$.fn.sidenav = function (options?: SidenavOptions) {
+  const configs: SidenavConfigs = $.extend(
     true,
     {
       quitter: 'a',
       toggler: '',
-      attr: 'sidebar-main',
+      attr: 'sidenav-main',
       open: false,
       align: 'left',
       top: 0,
@@ -84,27 +84,27 @@ $.fn.sidenav = function (options?: SideNavOptions) {
     const $sidenav = $(this);
     const $window = $(globalThis);
     const baseAttr = `data-${configs.attr}`;
-    const sidebarAttrOpen = `${baseAttr}-open`;
+    const sidenavAttrOpen = `${baseAttr}-open`;
 
-    const setSidebarWidth = (windowWidth: number) => {
+    const setSidenavWidth = (windowWidth: number) => {
       return windowWidth < configs.width + configs.gap
         ? windowWidth - configs.gap
         : configs.width;
     };
 
-    const isSidebarOpen = () => {
-      const attr = $sidenav.attr(sidebarAttrOpen);
+    const isSidenavOpen = () => {
+      const attr = $sidenav.attr(sidenavAttrOpen);
       return attr ? JSON.parse(attr) : false;
     };
 
-    const setSidebarAttrOpen = (status: boolean) => {
-      $sidenav.attr(sidebarAttrOpen, JSON.stringify(status));
+    const setSidenavAttrOpen = (status: boolean) => {
+      $sidenav.attr(sidenavAttrOpen, JSON.stringify(status));
     };
 
-    const currentWidth = setSidebarWidth($window.width() || 0);
+    const currentWidth = setSidenavWidth($window.width() || 0);
 
     // apply style and init attribute
-    $sidenav.attr(sidebarAttrOpen, JSON.stringify(configs.open)).css({
+    $sidenav.attr(sidenavAttrOpen, JSON.stringify(configs.open)).css({
       display: 'block',
       position: 'fixed',
       top: configs.top,
@@ -136,8 +136,8 @@ $.fn.sidenav = function (options?: SideNavOptions) {
       $mask.appendTo('body').css(maskStyle);
     }
 
-    /** Events triggered on sidebar opening. */
-    const onSidebarOpenEvent = () => {
+    /** Events triggered on sidenav opening. */
+    const onSidenavOpenEvent = () => {
       if (configs.mask.display) {
         $mask.fadeIn(configs.animation.duration);
       }
@@ -146,19 +146,20 @@ $.fn.sidenav = function (options?: SideNavOptions) {
         $('body').css('overflow-y', 'hidden');
       }
 
-      setSidebarAttrOpen(true);
+      setSidenavAttrOpen(true);
       configs.events.always();
       configs.events.onOpen();
     };
 
-    /** Events triggerd after sidebar opening action. */
-    const afterSidebarOpenEvent = () => {
+    /** Events triggerd after sidenav opening action. */
+    const afterSidenavOpenEvent = () => {
+      // trigger user custom events
       configs.events.always();
       configs.events.afterOpen();
     };
 
-    /** Events triggered on sidebar closing. */
-    const onSidebarCloseEvent = () => {
+    /** Events triggered on sidenav closing. */
+    const onSidenavCloseEvent = () => {
       if (configs.mask.display) {
         $mask.fadeOut(configs.animation.duration);
       }
@@ -167,58 +168,59 @@ $.fn.sidenav = function (options?: SideNavOptions) {
         $('body').css('overflow-y', 'visible');
       }
 
-      setSidebarAttrOpen(false);
+      setSidenavAttrOpen(false);
       configs.events.always();
       configs.events.onClose();
     };
 
-    /** Events triggerd after sidebar closing action. */
-    const afterSidebarCloseEvent = () => {
+    /** Events triggerd after sidenav closing action. */
+    const afterSidenavCloseEvent = () => {
+      // trigger user custom events
       configs.events.always();
       configs.events.afterClose();
     };
 
-    /** Triggers sidebar action open. */
-    const openSidebar = () => {
+    /** Triggers sidenav action open. */
+    const openSidenav = () => {
       $sidenav.animate(
         { [configs.align]: 0 },
         configs.animation.duration,
         configs.animation.easing,
-        afterSidebarOpenEvent
+        afterSidenavOpenEvent
       );
-      onSidebarOpenEvent();
+      onSidenavOpenEvent();
     };
 
-    /** Triggers sidebar action close. */
-    const closeSidebar = () => {
+    /** Triggers sidenav action close. */
+    const closeSidenav = () => {
       $sidenav.animate(
         { [configs.align]: -$sidenav.outerWidth()! },
         configs.animation.duration,
         configs.animation.easing,
-        afterSidebarCloseEvent
+        afterSidenavCloseEvent
       );
-      onSidebarCloseEvent();
+      onSidenavCloseEvent();
     };
 
     $(configs.toggler).on('click', () => {
-      if (isSidebarOpen()) {
-        closeSidebar();
+      if (isSidenavOpen()) {
+        closeSidenav();
       } else {
-        openSidebar();
+        openSidenav();
       }
     });
 
-    $mask.on('click', closeSidebar);
+    $mask.on('click', closeSidenav);
 
-    $sidenav.on('click', configs.quitter, closeSidebar);
+    $sidenav.on('click', configs.quitter, closeSidenav);
 
     $window.on('resize', () => {
       const windowWidth = $window.width() || 0;
-      const newWidth = setSidebarWidth(windowWidth);
+      const newWidth = setSidenavWidth(windowWidth);
 
       $sidenav.css('width', newWidth);
 
-      if (!isSidebarOpen()) {
+      if (!isSidenavOpen()) {
         $sidenav.css(configs.align, -$sidenav.outerWidth()!);
       }
     });
