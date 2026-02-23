@@ -81,7 +81,7 @@ $.fn.sidenav = function (options?: SideNavOptions) {
   );
 
   return this.each(function (this: HTMLElement) {
-    const $sidebar = $(this);
+    const $sidenav = $(this);
     const $window = $(globalThis);
     const baseAttr = `data-${configs.attr}`;
     const sidebarAttrOpen = `${baseAttr}-open`;
@@ -93,18 +93,18 @@ $.fn.sidenav = function (options?: SideNavOptions) {
     };
 
     const isSidebarOpen = () => {
-      const attr = $sidebar.attr(sidebarAttrOpen);
+      const attr = $sidenav.attr(sidebarAttrOpen);
       return attr ? JSON.parse(attr) : false;
     };
 
     const setSidebarAttrOpen = (status: boolean) => {
-      $sidebar.attr(sidebarAttrOpen, JSON.stringify(status));
+      $sidenav.attr(sidebarAttrOpen, JSON.stringify(status));
     };
 
     const currentWidth = setSidebarWidth($window.width() || 0);
 
     // apply style and init attribute
-    $sidebar.attr(sidebarAttrOpen, JSON.stringify(configs.open)).css({
+    $sidenav.attr(sidebarAttrOpen, JSON.stringify(configs.open)).css({
       display: 'block',
       position: 'fixed',
       top: configs.top,
@@ -180,7 +180,7 @@ $.fn.sidenav = function (options?: SideNavOptions) {
 
     /** Triggers sidebar action open. */
     const openSidebar = () => {
-      $sidebar.animate(
+      $sidenav.animate(
         { [configs.align]: 0 },
         configs.animation.duration,
         configs.animation.easing,
@@ -191,8 +191,8 @@ $.fn.sidenav = function (options?: SideNavOptions) {
 
     /** Triggers sidebar action close. */
     const closeSidebar = () => {
-      $sidebar.animate(
-        { [configs.align]: -$sidebar.outerWidth()! },
+      $sidenav.animate(
+        { [configs.align]: -$sidenav.outerWidth()! },
         configs.animation.duration,
         configs.animation.easing,
         afterSidebarCloseEvent
@@ -210,16 +210,16 @@ $.fn.sidenav = function (options?: SideNavOptions) {
 
     $mask.on('click', closeSidebar);
 
-    $sidebar.on('click', configs.quitter, closeSidebar);
+    $sidenav.on('click', configs.quitter, closeSidebar);
 
     $window.on('resize', () => {
       const windowWidth = $window.width() || 0;
       const newWidth = setSidebarWidth(windowWidth);
 
-      $sidebar.css('width', newWidth);
+      $sidenav.css('width', newWidth);
 
       if (!isSidebarOpen()) {
-        $sidebar.css(configs.align, -$sidebar.outerWidth()!);
+        $sidenav.css(configs.align, -$sidenav.outerWidth()!);
       }
     });
   });
