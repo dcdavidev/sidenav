@@ -1,6 +1,6 @@
 {
   "name": "@dcdavidev/jquery-sidenav-css",
-  "version": "1.1.9",
+  "version": "3.1.0",
   "description": "A simple side nav written in jQuery with css3 animations",
   "keywords": [
     "jquery",
