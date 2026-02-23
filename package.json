@@ -1,22 +1,21 @@
 {
   "name": "root",
+  "version": "3.0.0",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build": "npx lerna exec -- npm run build",
-    "commit": "cz",
-    "prepare": "lefthook install",
-    "prepublish": "npm run build && git add . && git commit -m \"chore: build packages\"",
-    "publish": "npx lerna publish"
+    "build": "turbo run build",
+    "fmt": "pnpm dlx prettier --ignore-unknown --write .",
+    "lint": "pnpm dlx eslint --no-warn-ignored --fix .",
+    "lint:fmt": "pnpm run lint && pnpm run fmt",
+    "release": "LEFTHOOK=\"0\" release-it"
   },
   "config": {
     "commitizen": {
       "path": "cz-git"
     }
-  },
-  "dependencies": {
-    "@release-it/conventional-changelog": "^10.0.5",
-    "conventional-changelog-conventionalcommits": "^9.1.0",
-    "release-it": "^19.2.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.4.2",
@@ -40,6 +39,8 @@
     "prettier-plugin-properties": "^0.3.1",
     "prettier-plugin-sh": "^0.18.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "prettier-plugin-toml": "^2.0.6"
-  }
+    "prettier-plugin-toml": "^2.0.6",
+    "turbo": "^2.8.10"
+  },
+  "packageManager": "pnpm@10.30.1"
 }

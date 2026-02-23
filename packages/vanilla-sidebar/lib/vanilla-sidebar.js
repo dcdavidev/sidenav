@@ -1,121 +1,101 @@
-'use strict';
-/**
- *
- */
+"use strict";
 class VanillaSidebar {
-  /**
-   *
-   */
-  constructor(opt) {
-    this.selector = opt.selector === undefined ? '#sidebar' : opt.selector;
-    this.quitterSelector =
-      opt.quitter === undefined ? '.quit-sidebar' : opt.selector;
-    this.align = opt.align === undefined ? 'left' : opt.align;
-    this.top = opt.top === undefined ? '56px' : opt.top;
-    this.width = opt.width === undefined ? '300px' : opt.width;
-    this.gap = opt.gap === undefined ? 56 : Number.parseInt(opt.gap);
-    this.opened = opt.opened === undefined ? false : opt.opened;
-    this.easing = opt.easing === undefined ? 'ease-in-out' : opt.easing;
-    this.zIndex = opt.zIndex === undefined ? 3000 : opt.zIndex;
-    this.hasMask = opt.mask === undefined ? true : opt.mask;
-    this.animationDuration = '500ms';
-    this.sidebar = document.querySelector(this.selector);
-    this.triggerer = document.querySelector(opt.triggerer);
-    this.quitter = document.querySelectorAll(this.quitterSelector);
-    this.sidebar.dataset.status = this.opened ? 'open' : 'closed';
-    this.sidebar.style.zIndex = this.zIndex.toString();
-    this.sidebar.style.transition = `${this.align} ${this.animationDuration} ${this.easing}`;
-    this.sidebar.style.position = 'fixed';
-    this.sidebar.style.top = this.top;
-    this.sidebar.style.bottom = '0';
-    this.sidebar.style.width = '100%';
-    this.sidebar.style.maxWidth = this.width;
-    if (window.innerWidth <= Number.parseInt(this.width) + this.gap) {
-      this.sidebar.style.width = `${(window.innerWidth - this.gap).toString()}px`;
+    constructor(opt) {
+        this.selector = opt.selector === undefined ? '#sidebar' : opt.selector;
+        this.quitterSelector =
+            opt.quitter === undefined ? '.quit-sidebar' : opt.selector;
+        this.align = opt.align === undefined ? 'left' : opt.align;
+        this.top = opt.top === undefined ? '56px' : opt.top;
+        this.width = opt.width === undefined ? '300px' : opt.width;
+        this.gap = opt.gap === undefined ? 56 : Number.parseInt(opt.gap);
+        this.opened = opt.opened === undefined ? false : opt.opened;
+        this.easing = opt.easing === undefined ? 'ease-in-out' : opt.easing;
+        this.zIndex = opt.zIndex === undefined ? 3000 : opt.zIndex;
+        this.hasMask = opt.mask === undefined ? true : opt.mask;
+        this.animationDuration = '500ms';
+        this.sidebar = document.querySelector(this.selector);
+        this.triggerer = document.querySelector(opt.triggerer);
+        this.quitter = document.querySelectorAll(this.quitterSelector);
+        this.sidebar.dataset.status = this.opened ? 'open' : 'closed';
+        this.sidebar.style.zIndex = this.zIndex.toString();
+        this.sidebar.style.transition = `${this.align} ${this.animationDuration} ${this.easing}`;
+        this.sidebar.style.position = 'fixed';
+        this.sidebar.style.top = this.top;
+        this.sidebar.style.bottom = '0';
+        this.sidebar.style.width = '100%';
+        this.sidebar.style.maxWidth = this.width;
+        if (window.innerWidth <= Number.parseInt(this.width) + this.gap) {
+            this.sidebar.style.width = `${(window.innerWidth - this.gap).toString()}px`;
+        }
+        window.addEventListener('resize', () => {
+            const safeWidth = `${(window.innerWidth - this.gap).toString()}px`;
+            this.sidebar.style.width =
+                window.innerWidth <= Number.parseInt(this.width) + this.gap
+                    ? safeWidth
+                    : '100%';
+            if (this.sidebar.dataset.status == 'closed') {
+                this.sidebar.style[this.align] =
+                    window.innerWidth <= Number.parseInt(this.width) + this.gap
+                        ? `-${safeWidth}`
+                        : `-${Number.parseInt(this.width)}px`;
+            }
+        });
+        this.sidebar.style[this.align] = this.opened
+            ? '0px'
+            : `-${this.sidebar.offsetWidth}px`;
+        this.triggerer.addEventListener('click', () => {
+            const status = this.sidebar.dataset.status;
+            if (status === 'closed') {
+                this.open();
+            }
+            else {
+                this.close();
+            }
+        });
+        this.mask = document.createElement('div');
+        this.mask.dataset.mask = this.opened ? 'open' : 'closed';
+        this.mask.style.visibility = 'hidden';
+        this.mask.style.background = 'rgba(0, 0, 0, 0.8)';
+        this.mask.style.zIndex = (this.zIndex - 1).toString();
+        this.mask.style.position = 'absolute';
+        this.mask.style.top = this.top;
+        this.mask.style.right = '0';
+        this.mask.style.bottom = '0';
+        this.mask.style.left = '0';
+        this.mask.style.transition = `visibility 0s, opacity ${this.animationDuration} ${this.easing}`;
+        this.mask.style.opacity = '0';
+        if (this.hasMask) {
+            document.body.append(this.mask);
+            this.mask.addEventListener('click', () => this.close());
+        }
+        for (const el of this.quitter) {
+            el.addEventListener('click', () => {
+                this.close();
+            });
+        }
     }
-    window.addEventListener('resize', () => {
-      const safeWidth = `${(window.innerWidth - this.gap).toString()}px`;
-      this.sidebar.style.width =
-        window.innerWidth <= Number.parseInt(this.width) + this.gap
-          ? safeWidth
-          : '100%';
-      if (this.sidebar.dataset.status == 'closed') {
-        this.sidebar.style[this.align] =
-          window.innerWidth <= Number.parseInt(this.width) + this.gap
-            ? `-${safeWidth}`
-            : `-${Number.parseInt(this.width)}px`;
-      }
-    });
-    this.sidebar.style[this.align] = this.opened
-      ? '0px'
-      : `-${this.sidebar.offsetWidth}px`;
-    this.triggerer.addEventListener('click', () => {
-      const status = this.sidebar.dataset.status;
-      if (status === 'closed') {
-        this.open();
-      } else {
-        this.close();
-      }
-    });
-    this.mask = document.createElement('div');
-    this.mask.dataset.mask = this.opened ? 'open' : 'closed';
-    this.mask.style.visibility = 'hidden';
-    this.mask.style.background = 'rgba(0, 0, 0, 0.8)';
-    this.mask.style.zIndex = (this.zIndex - 1).toString();
-    this.mask.style.position = 'absolute';
-    this.mask.style.top = this.top;
-    this.mask.style.right = '0';
-    this.mask.style.bottom = '0';
-    this.mask.style.left = '0';
-    this.mask.style.transition = `visibility 0s, opacity ${this.animationDuration} ${this.easing}`;
-    this.mask.style.opacity = '0';
-    if (this.hasMask) {
-      document.body.append(this.mask);
-      this.mask.addEventListener('click', () => this.close());
+    setAttribute() {
+        const status = this.sidebar.dataset.status;
+        this.sidebar.dataset.status = status === 'closed' ? 'opened' : 'closed';
     }
-    for (const el of this.quitter) {
-      el.addEventListener('click', () => {
-        this.close();
-      });
+    open() {
+        this.sidebar.style[this.align] = '0px';
+        const status = this.sidebar.dataset.status;
+        this.setAttribute();
+        this.showMask();
     }
-  }
-  /**
-   *
-   */
-  setAttribute() {
-    const status = this.sidebar.dataset.status;
-    this.sidebar.dataset.status = status === 'closed' ? 'opened' : 'closed';
-  }
-  /**
-   *
-   */
-  open() {
-    this.sidebar.style[this.align] = '0px';
-    const status = this.sidebar.dataset.status;
-    this.setAttribute();
-    this.showMask();
-  }
-  /**
-   *
-   */
-  close() {
-    this.sidebar.style[this.align] = `-${this.sidebar.offsetWidth}px`;
-    const status = this.sidebar.dataset.status;
-    this.setAttribute();
-    this.hideMask();
-  }
-  /**
-   *
-   */
-  showMask() {
-    this.mask.style.opacity = '1';
-    this.mask.style.visibility = 'visible';
-  }
-  /**
-   *
-   */
-  hideMask() {
-    this.mask.style.opacity = '0';
-    this.mask.style.visibility = 'hidden';
-  }
+    close() {
+        this.sidebar.style[this.align] = `-${this.sidebar.offsetWidth}px`;
+        const status = this.sidebar.dataset.status;
+        this.setAttribute();
+        this.hideMask();
+    }
+    showMask() {
+        this.mask.style.opacity = '1';
+        this.mask.style.visibility = 'visible';
+    }
+    hideMask() {
+        this.mask.style.opacity = '0';
+        this.mask.style.visibility = 'hidden';
+    }
 }

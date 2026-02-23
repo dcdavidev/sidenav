@@ -31,5 +31,8 @@
     "build": "npx tsc",
     "postbuild": "uglifyjs ./lib/vanilla-sidebar.js -o ./lib/vanilla-sidebar.min.js"
   },
-  "gitHead": "e5a904ff5098bcd1db6133991f59c1547a2bf9f9"
+  "gitHead": "e5a904ff5098bcd1db6133991f59c1547a2bf9f9",
+  "devDependencies": {
+    "uglify-js": "^3.19.3"
+  }
 }
