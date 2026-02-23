@@ -54,9 +54,9 @@ Your template requires a trigger element and the sidenav container.
 Import the class and initialize it with your selectors:
 
 ```javascript
-import { VanillaSidenav } from '@dcdavidev/vanilla-sidenav';
+import { Sidenav } from '@dcdavidev/vanilla-sidenav';
 
-const sidenav = new VanillaSidenav({
+const sidenav = new Sidenav({
   selector: '#sidenav',
   triggerer: '#toggle-sidenav',
   quitter: '.quit-sidenav'
@@ -81,7 +81,7 @@ For long menus that require scrolling, add the following CSS to your wrapper ele
 You can also control the sidenav programmatically:
 
 ```javascript
-const sidenav = new VanillaSidenav({ ... });
+const sidenav = new Sidenav({ ... });
 
 // Open the menu
 sidenav.open();

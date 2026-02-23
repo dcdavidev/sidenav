@@ -1,4 +1,4 @@
-export interface VanillaSidenavOptions {
+export interface SidenavOptions {
   selector: string;
   triggerer: string;
   quitter: string;
@@ -15,7 +15,7 @@ export interface VanillaSidenavOptions {
 /**
  * A simple vanilla javascript sidenav.
  */
-export class VanillaSidenav {
+export class Sidenav {
   sidenav: HTMLElement;
   triggerer: HTMLElement;
   quitter: NodeListOf<Element>;
@@ -36,7 +36,7 @@ export class VanillaSidenav {
    * Initialize the sidenav.
    * @param opt - The sidenav options.
    */
-  constructor(opt: VanillaSidenavOptions) {
+  constructor(opt: SidenavOptions) {
     this.selector = opt.selector === undefined ? '#sidenav' : opt.selector;
     this.quitterSelector =
       opt.quitter === undefined ? '.quit-sidenav' : opt.selector;
