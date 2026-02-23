@@ -23,8 +23,10 @@
     "@commitlint/config-conventional": "^20.4.2",
     "@cspell/cspell-types": "^9.7.0",
     "@prettier/plugin-xml": "^3.4.2",
+    "@release-it/conventional-changelog": "^10.0.5",
     "commitizen": "^4.3.1",
     "commitlint-config-spellbookx": "^0.10.0",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
     "cspell": "^9.7.0",
     "cspell-config-spellbookx": "^0.10.0",
     "cz-git": "^1.12.0",
@@ -41,6 +43,7 @@
     "prettier-plugin-sh": "^0.18.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "prettier-plugin-toml": "^2.0.6",
+    "release-it": "^19.2.4",
     "turbo": "^2.8.10"
   },
   "packageManager": "pnpm@10.30.1"
