@@ -8,11 +8,11 @@ A modern collection of high-performance side navigation libraries for the web. T
 
 ## 📦 Packages
 
-| Package | Description | Documentation |
-| :--- | :--- | :--- |
-| **@dcdavidev/jquery-sidenav** | Robust jQuery plugin with animation easing and jQuery UI support. | [Read More](./packages/jquery-sidenav/README.md) |
-| **@dcdavidev/jquery-sidenav-css** | Performance-optimized jQuery plugin leveraging CSS3 transitions. | [Read More](./packages/jquery-sidenav-css/README.md) |
-| **@dcdavidev/vanilla-sidenav** | Zero-dependency, lightweight library written in pure vanilla JavaScript. | [Read More](./packages/vanilla-sidenav/README.md) |
+| Package                           | Description                                                              | Documentation                                        |
+| :-------------------------------- | :----------------------------------------------------------------------- | :--------------------------------------------------- |
+| **@dcdavidev/jquery-sidenav**     | Robust jQuery plugin with animation easing and jQuery UI support.        | [Read More](./packages/jquery-sidenav/README.md)     |
+| **@dcdavidev/jquery-sidenav-css** | Performance-optimized jQuery plugin leveraging CSS3 transitions.         | [Read More](./packages/jquery-sidenav-css/README.md) |
+| **@dcdavidev/vanilla-sidenav**    | Zero-dependency, lightweight library written in pure vanilla JavaScript. | [Read More](./packages/vanilla-sidenav/README.md)    |
 
 ## 🚀 Tech Stack
 
