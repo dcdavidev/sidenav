@@ -28,10 +28,9 @@ export interface SideNavOptions {
   };
 }
 
-interface SideNavConfigs
-  extends Required<
-    Omit<SideNavOptions, 'toggler' | 'animation' | 'mask' | 'events'>
-  > {
+interface SideNavConfigs extends Required<
+  Omit<SideNavOptions, 'toggler' | 'animation' | 'mask' | 'events'>
+> {
   toggler: string;
   animation: Required<NonNullable<SideNavOptions['animation']>>;
   mask: Required<NonNullable<SideNavOptions['mask']>>;
@@ -40,11 +39,11 @@ interface SideNavConfigs
 
 declare global {
   interface JQuery {
-    sideNav(options?: SideNavOptions): JQuery;
+    sidenav(options?: SideNavOptions): JQuery;
   }
 }
 
-$.fn.sideNav = function (options?: SideNavOptions) {
+$.fn.sidenav = function (options?: SideNavOptions) {
   const configs: SideNavConfigs = $.extend(
     true,
     {

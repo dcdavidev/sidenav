@@ -13,7 +13,7 @@ pnpm add @dcdavidev/jquery-sidenav
 Include jQuery and jQuery UI, then:
 
 ```javascript
-$('#sidebar').sideNav({
+$('#sidenav').sidenav({
   toggler: '#toggle-sidebar',
   quitter: '.quit-sidebar',
 });
