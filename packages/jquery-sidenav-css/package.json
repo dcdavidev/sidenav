@@ -9,13 +9,13 @@
     "simple-sidenav",
     "simpler-sidenav"
   ],
-  "homepage": "https://github.com/dcdavidev/sidebar",
+  "homepage": "https://github.com/dcdavidev/sidenav",
   "bugs": {
-    "url": "https://github.com/dcdavidev/sidebar/issues"
+    "url": "https://github.com/dcdavidev/sidenav/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dcdavidev/sidebar.git"
+    "url": "git+https://github.com/dcdavidev/sidenav.git"
   },
   "license": "MIT",
   "author": "Davide Di Criscito",
