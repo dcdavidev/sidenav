@@ -22,28 +22,33 @@
   },
   "license": "MIT",
   "author": "Davide Di Criscito <davide.dicriscito@gmail.com>",
-  "main": "lib/jquery.simpler-sidebar.js",
-  "directories": {
-    "lib": "lib"
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.cts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
   },
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
-    "prebuild": "npx eslint src/jquery.simpler-sidebar.js",
-    "build": "babel src -d lib",
-    "postbuild": "uglifyjs lib/jquery.simpler-sidebar.js -o lib/jquery.simpler-sidebar.min.js"
+    "prebuild": "rm -rf dist",
+    "build": "tsdown",
+    "dev": "tsdown --watch"
   },
   "dependencies": {
     "jquery": "^4.0.0",
     "jquery-ui": "^1.14.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.6",
-    "@babel/core": "^7.29.0",
-    "@babel/plugin-transform-computed-properties": "^7.28.6",
-    "@babel/preset-env": "^7.29.0",
-    "uglify-js": "^3.19.3"
-  },
-  "gitHead": "e5a904ff5098bcd1db6133991f59c1547a2bf9f9"
+    "@dcdavidev/tsconfig": "latest",
+    "@types/jquery": "latest",
+    "@types/jqueryui": "latest",
+    "tsdown": "latest"
+  }
 }
