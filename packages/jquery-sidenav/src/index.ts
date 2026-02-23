@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-export interface SimplerSidebarOptions {
+export interface SideNavOptions {
   quitter?: string;
   toggler?: string;
   attr?: string;
@@ -28,24 +28,24 @@ export interface SimplerSidebarOptions {
   };
 }
 
-interface SimplerSidebarConfigs
+interface SideNavConfigs
   extends Required<
-    Omit<SimplerSidebarOptions, 'toggler' | 'animation' | 'mask' | 'events'>
+    Omit<SideNavOptions, 'toggler' | 'animation' | 'mask' | 'events'>
   > {
   toggler: string;
-  animation: Required<NonNullable<SimplerSidebarOptions['animation']>>;
-  mask: Required<NonNullable<SimplerSidebarOptions['mask']>>;
-  events: Required<NonNullable<SimplerSidebarOptions['events']>>;
+  animation: Required<NonNullable<SideNavOptions['animation']>>;
+  mask: Required<NonNullable<SideNavOptions['mask']>>;
+  events: Required<NonNullable<SideNavOptions['events']>>;
 }
 
 declare global {
   interface JQuery {
-    simplerSidebar(options?: SimplerSidebarOptions): JQuery;
+    sideNav(options?: SideNavOptions): JQuery;
   }
 }
 
-$.fn.simplerSidebar = function (options?: SimplerSidebarOptions) {
-  const configs: SimplerSidebarConfigs = $.extend(
+$.fn.sideNav = function (options?: SideNavOptions) {
+  const configs: SideNavConfigs = $.extend(
     true,
     {
       quitter: 'a',
