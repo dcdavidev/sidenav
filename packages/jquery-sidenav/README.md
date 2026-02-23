@@ -64,10 +64,10 @@ Your sidebar needs a trigger (toggler) and the navigation container itself.
 Initialize the plugin by targeting your sidenav element:
 
 ```javascript
-$(document).ready(function() {
+$(document).ready(function () {
   $('#sidenav').sidenav({
     toggler: '#toggle-sidenav',
-    quitter: '.quit-sidenav'
+    quitter: '.quit-sidenav',
   });
 });
 ```
@@ -93,38 +93,39 @@ You can hook into the lifecycle of the sidenav to trigger custom logic:
 $('#sidenav').sidenav({
   toggler: '#toggle-sidenav',
   events: {
-    onOpen: function() {
+    onOpen: function () {
       console.log('Sidenav is starting to open!');
     },
-    afterClose: function() {
+    afterClose: function () {
       console.log('Sidenav is now fully closed.');
     },
-    always: function() {
+    always: function () {
       // Triggered on every state change
       $('#toggle-sidenav').toggleClass('is-active');
-    }
-  }
+    },
+  },
 });
 ```
 
 ## Options
 
-| Option | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `toggler` | `string` | `''` | **Required**. Selector for the element that toggles the menu. |
-| `quitter` | `string` | `'a'` | Selector for elements inside the menu that will close it when clicked. |
-| `align` | `'left' \| 'right'` | `'left'` | Which side the menu appears on. |
-| `width` | `number` | `300` | Width of the menu in pixels. |
-| `gap` | `number` | `64` | The minimum gap left between the menu and the screen edge on small devices. |
-| `open` | `boolean` | `false` | Whether the menu should be open on initialization. |
-| `zIndex` | `number` | `3000` | The z-index of the sidenav element. |
-| `freezePage` | `boolean` | `true` | Set `body` overflow to `hidden` when the menu is open. |
-| `animation.duration` | `number` | `500` | Animation speed in milliseconds. |
-| `animation.easing` | `string` | `'swing'` | jQuery UI easing function name. |
-| `mask.display` | `boolean` | `true` | Whether to show the background overlay. |
-| `mask.css` | `object` | See below | Custom CSS for the mask element. |
+| Option               | Type                | Default   | Description                                                                 |
+| :------------------- | :------------------ | :-------- | :-------------------------------------------------------------------------- |
+| `toggler`            | `string`            | `''`      | **Required**. Selector for the element that toggles the menu.               |
+| `quitter`            | `string`            | `'a'`     | Selector for elements inside the menu that will close it when clicked.      |
+| `align`              | `'left' \| 'right'` | `'left'`  | Which side the menu appears on.                                             |
+| `width`              | `number`            | `300`     | Width of the menu in pixels.                                                |
+| `gap`                | `number`            | `64`      | The minimum gap left between the menu and the screen edge on small devices. |
+| `open`               | `boolean`           | `false`   | Whether the menu should be open on initialization.                          |
+| `zIndex`             | `number`            | `3000`    | The z-index of the sidenav element.                                         |
+| `freezePage`         | `boolean`           | `true`    | Set `body` overflow to `hidden` when the menu is open.                      |
+| `animation.duration` | `number`            | `500`     | Animation speed in milliseconds.                                            |
+| `animation.easing`   | `string`            | `'swing'` | jQuery UI easing function name.                                             |
+| `mask.display`       | `boolean`           | `true`    | Whether to show the background overlay.                                     |
+| `mask.css`           | `object`            | See below | Custom CSS for the mask element.                                            |
 
 ### Default Mask CSS
+
 ```javascript
 {
   backgroundColor: 'black',
