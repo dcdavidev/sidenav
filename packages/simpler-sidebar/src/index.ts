@@ -28,9 +28,10 @@ export interface SimplerSidebarOptions {
   };
 }
 
-interface SimplerSidebarConfigs extends Required<
-  Omit<SimplerSidebarOptions, 'toggler' | 'animation' | 'mask' | 'events'>
-> {
+interface SimplerSidebarConfigs
+  extends Required<
+    Omit<SimplerSidebarOptions, 'toggler' | 'animation' | 'mask' | 'events'>
+  > {
   toggler: string;
   animation: Required<NonNullable<SimplerSidebarOptions['animation']>>;
   mask: Required<NonNullable<SimplerSidebarOptions['mask']>>;
@@ -136,6 +137,7 @@ $.fn.simplerSidebar = function (options?: SimplerSidebarOptions) {
       $mask.appendTo('body').css(maskStyle);
     }
 
+    /** Events triggered on sidebar opening. */
     const onSidebarOpenEvent = () => {
       if (configs.mask.display) {
         $mask.fadeIn(configs.animation.duration);
@@ -150,11 +152,13 @@ $.fn.simplerSidebar = function (options?: SimplerSidebarOptions) {
       configs.events.onOpen();
     };
 
+    /** Events triggerd after sidebar opening action. */
     const afterSidebarOpenEvent = () => {
       configs.events.always();
       configs.events.afterOpen();
     };
 
+    /** Events triggered on sidebar closing. */
     const onSidebarCloseEvent = () => {
       if (configs.mask.display) {
         $mask.fadeOut(configs.animation.duration);
@@ -169,11 +173,13 @@ $.fn.simplerSidebar = function (options?: SimplerSidebarOptions) {
       configs.events.onClose();
     };
 
+    /** Events triggerd after sidebar closing action. */
     const afterSidebarCloseEvent = () => {
       configs.events.always();
       configs.events.afterClose();
     };
 
+    /** Triggers sidebar action open. */
     const openSidebar = () => {
       $sidebar.animate(
         { [configs.align]: 0 },
@@ -184,6 +190,7 @@ $.fn.simplerSidebar = function (options?: SimplerSidebarOptions) {
       onSidebarOpenEvent();
     };
 
+    /** Triggers sidebar action close. */
     const closeSidebar = () => {
       $sidebar.animate(
         { [configs.align]: -$sidebar.outerWidth()! },

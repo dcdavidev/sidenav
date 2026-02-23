@@ -29,7 +29,13 @@ export interface SimplerSidebarCss3Options {
   };
 }
 
-interface SimplerSidebarCss3Configs extends Required<Omit<SimplerSidebarCss3Options, 'toggler' | 'animation' | 'mask' | 'events'>> {
+interface SimplerSidebarCss3Configs
+  extends Required<
+    Omit<
+      SimplerSidebarCss3Options,
+      'toggler' | 'animation' | 'mask' | 'events'
+    >
+  > {
   toggler: string;
   animation: Required<NonNullable<SimplerSidebarCss3Options['animation']>>;
   mask: Required<NonNullable<SimplerSidebarCss3Options['mask']>>;
@@ -80,7 +86,7 @@ $.fn.simplerSidebarCss3 = function (options?: SimplerSidebarCss3Options) {
 
   return this.each(function (this: HTMLElement) {
     const $sidebar = $(this);
-    const $window = $(window);
+    const $window = $(globalThis);
     const baseAttr = `data-${configs.attr}`;
     const sidebarAttrOpen = `${baseAttr}-open`;
 
@@ -155,7 +161,7 @@ $.fn.simplerSidebarCss3 = function (options?: SimplerSidebarCss3Options) {
       $mask.appendTo('body').css(maskStyle);
     }
 
-    /** events triggered on sidebar opening */
+    /** Events triggered on sidebar opening. */
     const onSidebarOpenEvent = () => {
       // Show mask
       if (configs.mask.display) {
@@ -174,14 +180,14 @@ $.fn.simplerSidebarCss3 = function (options?: SimplerSidebarCss3Options) {
       configs.events.onOpen();
     };
 
-    /** events triggerd after sidebar opening action */
+    /** Events triggerd after sidebar opening action. */
     const afterSidebarOpenEvent = () => {
       // trigger user custom events
       configs.events.always();
       configs.events.afterOpen();
     };
 
-    /** events triggered on sidebar closing */
+    /** Events triggered on sidebar closing. */
     const onSidebarCloseEvent = () => {
       // hide mask
       if (configs.mask.display) {
@@ -200,14 +206,14 @@ $.fn.simplerSidebarCss3 = function (options?: SimplerSidebarCss3Options) {
       configs.events.onClose();
     };
 
-    /** events triggerd after sidebar closing action */
+    /** Events triggerd after sidebar closing action. */
     const afterSidebarCloseEvent = () => {
       // trigger user custom events
       configs.events.always();
       configs.events.afterClose();
     };
 
-    /** triggers sidebar action open */
+    /** Triggers sidebar action open. */
     const openSidebar = () => {
       // trigger parallel events
       onSidebarOpenEvent();
@@ -219,7 +225,7 @@ $.fn.simplerSidebarCss3 = function (options?: SimplerSidebarCss3Options) {
       setTimeout(afterSidebarOpenEvent, configs.animation.duration);
     };
 
-    /** triggers sidebar action close */
+    /** Triggers sidebar action close. */
     const closeSidebar = () => {
       // trigger parallel events
       onSidebarCloseEvent();

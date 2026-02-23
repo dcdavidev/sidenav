@@ -74,26 +74,26 @@ export class VanillaSidebar {
     this.sidebar.style.maxWidth = this.width;
 
     // Let the mask be displayed when the screen is narrower than the sidebar
-    if (window.innerWidth <= Number.parseInt(this.width) + this.gap) {
+    if (globalThis.innerWidth <= Number.parseInt(this.width) + this.gap) {
       this.sidebar.style.width = `${(
-        window.innerWidth - this.gap
+        globalThis.innerWidth - this.gap
       ).toString()}px`;
     }
 
     // set sidebar width to let the mask to be displayed when screen get narrower
-    window.addEventListener('resize', () => {
-      const safeWidth = `${(window.innerWidth - this.gap).toString()}px`;
+    globalThis.addEventListener('resize', () => {
+      const safeWidth = `${(globalThis.innerWidth - this.gap).toString()}px`;
 
       // Set sidebar width
       this.sidebar.style.width =
-        window.innerWidth <= Number.parseInt(this.width) + this.gap
+        globalThis.innerWidth <= Number.parseInt(this.width) + this.gap
           ? safeWidth
           : '100%';
 
       // Reset sidebar position
       if (this.sidebar.dataset.status == 'closed') {
         this.sidebar.style[this.align] =
-          window.innerWidth <= Number.parseInt(this.width) + this.gap
+          globalThis.innerWidth <= Number.parseInt(this.width) + this.gap
             ? `-${safeWidth}`
             : `-${Number.parseInt(this.width)}px`;
       }
