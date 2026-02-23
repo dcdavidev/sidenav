@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-export interface SimplerSidebarCss3Options {
+export interface SidenavOptions {
   quitter?: string;
   toggler?: string;
   attr?: string;
@@ -29,28 +29,28 @@ export interface SimplerSidebarCss3Options {
   };
 }
 
-interface SimplerSidebarCss3Configs extends Required<
-  Omit<SimplerSidebarCss3Options, 'toggler' | 'animation' | 'mask' | 'events'>
+interface SidenavConfigs extends Required<
+  Omit<SidenavOptions, 'toggler' | 'animation' | 'mask' | 'events'>
 > {
   toggler: string;
-  animation: Required<NonNullable<SimplerSidebarCss3Options['animation']>>;
-  mask: Required<NonNullable<SimplerSidebarCss3Options['mask']>>;
-  events: Required<NonNullable<SimplerSidebarCss3Options['events']>>;
+  animation: Required<NonNullable<SidenavOptions['animation']>>;
+  mask: Required<NonNullable<SidenavOptions['mask']>>;
+  events: Required<NonNullable<SidenavOptions['events']>>;
 }
 
 declare global {
   interface JQuery {
-    simplerSidebarCss3(options?: SimplerSidebarCss3Options): JQuery;
+    sidenav(options?: SidenavOptions): JQuery;
   }
 }
 
-$.fn.simplerSidebarCss3 = function (options?: SimplerSidebarCss3Options) {
-  const configs: SimplerSidebarCss3Configs = $.extend(
+$.fn.sidenav = function (options?: SidenavOptions) {
+  const configs: SidenavConfigs = $.extend(
     true,
     {
       quitter: 'a',
       toggler: '',
-      attr: 'sidebar-main',
+      attr: 'sidenav-main',
       open: false,
       align: 'left',
       top: 0,
@@ -81,30 +81,30 @@ $.fn.simplerSidebarCss3 = function (options?: SimplerSidebarCss3Options) {
   );
 
   return this.each(function (this: HTMLElement) {
-    const $sidebar = $(this);
+    const $sidenav = $(this);
     const $window = $(globalThis);
     const baseAttr = `data-${configs.attr}`;
-    const sidebarAttrOpen = `${baseAttr}-open`;
+    const sidenavAttrOpen = `${baseAttr}-open`;
 
-    const setSidebarWidth = (windowWidth: number) => {
+    const setSidenavWidth = (windowWidth: number) => {
       return windowWidth < configs.width + configs.gap
         ? windowWidth - configs.gap
         : configs.width;
     };
 
-    const isSidebarOpen = () => {
-      const attr = $sidebar.attr(sidebarAttrOpen);
+    const isSidenavOpen = () => {
+      const attr = $sidenav.attr(sidenavAttrOpen);
       return attr ? JSON.parse(attr) : false;
     };
 
-    const setSidebarAttrOpen = (status: boolean) => {
-      $sidebar.attr(sidebarAttrOpen, JSON.stringify(status));
+    const setSidenavAttrOpen = (status: boolean) => {
+      $sidenav.attr(sidenavAttrOpen, JSON.stringify(status));
     };
 
-    const currentWidth = setSidebarWidth($window.width() || 0);
+    const currentWidth = setSidenavWidth($window.width() || 0);
 
     // apply style and init attribute
-    $sidebar.attr(sidebarAttrOpen, JSON.stringify(configs.open)).css({
+    $sidenav.attr(sidenavAttrOpen, JSON.stringify(configs.open)).css({
       display: 'block',
       position: 'fixed',
       top: configs.top,
@@ -157,8 +157,8 @@ $.fn.simplerSidebarCss3 = function (options?: SimplerSidebarCss3Options) {
       $mask.appendTo('body').css(maskStyle);
     }
 
-    /** Events triggered on sidebar opening. */
-    const onSidebarOpenEvent = () => {
+    /** Events triggered on sidenav opening. */
+    const onSidenavOpenEvent = () => {
       // Show mask
       if (configs.mask.display) {
         $mask.css(maskActive);
@@ -169,22 +169,22 @@ $.fn.simplerSidebarCss3 = function (options?: SimplerSidebarCss3Options) {
         $('body').css('overflow-y', 'hidden');
       }
 
-      setSidebarAttrOpen(true);
+      setSidenavAttrOpen(true);
 
       // trigger user custom events
       configs.events.always();
       configs.events.onOpen();
     };
 
-    /** Events triggerd after sidebar opening action. */
-    const afterSidebarOpenEvent = () => {
+    /** Events triggerd after sidenav opening action. */
+    const afterSidenavOpenEvent = () => {
       // trigger user custom events
       configs.events.always();
       configs.events.afterOpen();
     };
 
-    /** Events triggered on sidebar closing. */
-    const onSidebarCloseEvent = () => {
+    /** Events triggered on sidenav closing. */
+    const onSidenavCloseEvent = () => {
       // hide mask
       if (configs.mask.display) {
         $mask.css(maskInactive);
@@ -195,70 +195,69 @@ $.fn.simplerSidebarCss3 = function (options?: SimplerSidebarCss3Options) {
         $('body').css('overflow-y', 'visible');
       }
 
-      setSidebarAttrOpen(false);
+      setSidenavAttrOpen(false);
 
       // trigger user custom events
       configs.events.always();
       configs.events.onClose();
     };
 
-    /** Events triggerd after sidebar closing action. */
-    const afterSidebarCloseEvent = () => {
+    /** Events triggerd after sidenav closing action. */
+    const afterSidenavCloseEvent = () => {
       // trigger user custom events
       configs.events.always();
       configs.events.afterClose();
     };
 
-    /** Triggers sidebar action open. */
-    const openSidebar = () => {
+    /** Triggers sidenav action open. */
+    const openSidenav = () => {
       // trigger parallel events
-      onSidebarOpenEvent();
+      onSidenavOpenEvent();
 
       // animation
-      $sidebar.css(configs.align, 0);
+      $sidenav.css(configs.align, 0);
 
       // callbacks events
-      setTimeout(afterSidebarOpenEvent, configs.animation.duration);
+      setTimeout(afterSidenavOpenEvent, configs.animation.duration);
     };
 
-    /** Triggers sidebar action close. */
-    const closeSidebar = () => {
+    /** Triggers sidenav action close. */
+    const closeSidenav = () => {
       // trigger parallel events
-      onSidebarCloseEvent();
+      onSidenavCloseEvent();
 
       // animation
-      $sidebar.css(configs.align, -setSidebarWidth($window.width() || 0));
+      $sidenav.css(configs.align, -setSidenavWidth($window.width() || 0));
 
       // callbacks events
-      setTimeout(afterSidebarCloseEvent, configs.animation.duration);
+      setTimeout(afterSidenavCloseEvent, configs.animation.duration);
     };
 
-    // trigger open or close action when the toggler is clicked
     $(configs.toggler).on('click', () => {
-      if (isSidebarOpen()) {
-        closeSidebar();
+      if (isSidenavOpen()) {
+        closeSidenav();
       } else {
-        openSidebar();
+        openSidenav();
       }
     });
 
     // trigger close action when $mask is clicked
-    $mask.on('click', closeSidebar);
+    $mask.on('click', closeSidenav);
 
     // trigger close action when quitter elements
-    // in sidebar are clicked
-    $sidebar.on('click', configs.quitter, closeSidebar);
+    // in sidenav are clicked
+    $sidenav.on('click', configs.quitter, closeSidenav);
 
     // Updates on window resize
     $window.on('resize', () => {
       const windowWidth = $window.width() || 0;
 
-      // update default sidebar width on window resize
-      $sidebar.css('width', setSidebarWidth(windowWidth));
+      // update default sidenav width on window resize
+      $sidenav.css('width', setSidenavWidth(windowWidth));
 
-      // update sidebar width while open
-      if (!isSidebarOpen()) {
-        $sidebar.css(configs.align, -$sidebar.outerWidth()!);
+      // update sidenav width while open
+      if (!isSidenavOpen()) {
+        $sidenav.css(configs.align, -$sidenav.outerWidth()!);
       }
     });
   });

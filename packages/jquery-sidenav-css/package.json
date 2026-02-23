@@ -1,14 +1,13 @@
 {
-  "name": "@dcdavidev/vanilla-sidebar",
-  "version": "1.3.7",
-  "description": "A simple side nav",
+  "name": "@dcdavidev/jquery-sidenav-css",
+  "version": "1.1.9",
+  "description": "A simple side nav written in jQuery with css3 animations",
   "keywords": [
-    "sidebar",
+    "jquery",
+    "jquery-plugin",
     "sidenav",
-    "simple sidebar",
-    "simple sidenav",
-    "simple-sidebar",
-    "simpler-sidebar"
+    "simple-sidenav",
+    "simpler-sidenav"
   ],
   "homepage": "https://github.com/dcdavidev/sidebar",
   "bugs": {
@@ -41,6 +40,11 @@
   },
   "devDependencies": {
     "@dcdavidev/tsconfig": "latest",
+    "@types/jquery": "latest",
+    "jquery": "^4.0.0",
     "tsdown": "latest"
+  },
+  "peerDependencies": {
+    "jquery": ">=3.0.0"
   }
 }

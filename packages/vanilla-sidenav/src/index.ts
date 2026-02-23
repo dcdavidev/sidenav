@@ -1,4 +1,4 @@
-export interface VanillaSidebarOptions {
+export interface VanillaSidenavOptions {
   selector: string;
   triggerer: string;
   quitter: string;
@@ -13,10 +13,10 @@ export interface VanillaSidebarOptions {
 }
 
 /**
- * A simple vanilla javascript sidebar.
+ * A simple vanilla javascript sidenav.
  */
-export class VanillaSidebar {
-  sidebar: HTMLElement;
+export class VanillaSidenav {
+  sidenav: HTMLElement;
   triggerer: HTMLElement;
   quitter: NodeListOf<Element>;
   mask: HTMLElement;
@@ -33,13 +33,13 @@ export class VanillaSidebar {
   animationDuration: string;
 
   /**
-   * Initialize the sidebar.
-   * @param opt - The sidebar options.
+   * Initialize the sidenav.
+   * @param opt - The sidenav options.
    */
-  constructor(opt: VanillaSidebarOptions) {
-    this.selector = opt.selector === undefined ? '#sidebar' : opt.selector;
+  constructor(opt: VanillaSidenavOptions) {
+    this.selector = opt.selector === undefined ? '#sidenav' : opt.selector;
     this.quitterSelector =
-      opt.quitter === undefined ? '.quit-sidebar' : opt.selector;
+      opt.quitter === undefined ? '.quit-sidenav' : opt.selector;
     this.align = opt.align === undefined ? 'left' : opt.align;
     this.top = opt.top === undefined ? '56px' : opt.top;
     this.width = opt.width === undefined ? '300px' : opt.width;
@@ -51,62 +51,62 @@ export class VanillaSidebar {
     this.animationDuration = '500ms';
 
     // Select the elements
-    this.sidebar = document.querySelector(this.selector)!;
+    this.sidenav = document.querySelector(this.selector)!;
     this.triggerer = document.querySelector(opt.triggerer)!;
     this.quitter = document.querySelectorAll(this.quitterSelector)!;
 
     // Add attributes
-    this.sidebar.dataset.status = this.opened ? 'open' : 'closed';
+    this.sidenav.dataset.status = this.opened ? 'open' : 'closed';
 
     // Add z-index
-    this.sidebar.style.zIndex = this.zIndex.toString();
+    this.sidenav.style.zIndex = this.zIndex.toString();
 
     // Add transition
-    this.sidebar.style.transition = `${this.align} ${this.animationDuration} ${this.easing}`;
+    this.sidenav.style.transition = `${this.align} ${this.animationDuration} ${this.easing}`;
 
-    // Set sidebar position
-    this.sidebar.style.position = 'fixed';
-    this.sidebar.style.top = this.top;
-    this.sidebar.style.bottom = '0';
+    // Set sidenav position
+    this.sidenav.style.position = 'fixed';
+    this.sidenav.style.top = this.top;
+    this.sidenav.style.bottom = '0';
 
-    // Set sidebar width
-    this.sidebar.style.width = '100%';
-    this.sidebar.style.maxWidth = this.width;
+    // Set sidenav width
+    this.sidenav.style.width = '100%';
+    this.sidenav.style.maxWidth = this.width;
 
-    // Let the mask be displayed when the screen is narrower than the sidebar
+    // Let the mask be displayed when the screen is narrower than the sidenav
     if (globalThis.innerWidth <= Number.parseInt(this.width) + this.gap) {
-      this.sidebar.style.width = `${(
+      this.sidenav.style.width = `${(
         globalThis.innerWidth - this.gap
       ).toString()}px`;
     }
 
-    // set sidebar width to let the mask to be displayed when screen get narrower
+    // set sidenav width to let the mask to be displayed when screen get narrower
     globalThis.addEventListener('resize', () => {
       const safeWidth = `${(globalThis.innerWidth - this.gap).toString()}px`;
 
-      // Set sidebar width
-      this.sidebar.style.width =
+      // Set sidenav width
+      this.sidenav.style.width =
         globalThis.innerWidth <= Number.parseInt(this.width) + this.gap
           ? safeWidth
           : '100%';
 
-      // Reset sidebar position
-      if (this.sidebar.dataset.status == 'closed') {
-        this.sidebar.style[this.align] =
+      // Reset sidenav position
+      if (this.sidenav.dataset.status == 'closed') {
+        this.sidenav.style[this.align] =
           globalThis.innerWidth <= Number.parseInt(this.width) + this.gap
             ? `-${safeWidth}`
             : `-${Number.parseInt(this.width)}px`;
       }
     });
 
-    // Set sidebar open or closed
-    this.sidebar.style[this.align] = this.opened
+    // Set sidenav open or closed
+    this.sidenav.style[this.align] = this.opened
       ? '0px'
-      : `-${this.sidebar.offsetWidth}px`;
+      : `-${this.sidenav.offsetWidth}px`;
 
-    // Trigger sidebar animation
+    // Trigger sidenav animation
     this.triggerer.addEventListener('click', () => {
-      const status: string = this.sidebar.dataset.status!;
+      const status: string = this.sidenav.dataset.status!;
 
       if (status === 'closed') {
         this.open();
@@ -135,7 +135,7 @@ export class VanillaSidebar {
       this.mask.addEventListener('click', () => this.close());
     }
 
-    // Quit sidebar if quitter is clicked
+    // Quit sidenav if quitter is clicked
     for (const el of this.quitter) {
       el.addEventListener('click', () => {
         this.close();
@@ -144,28 +144,28 @@ export class VanillaSidebar {
   }
 
   /**
-   * Set the status attribute of the sidebar.
+   * Set the status attribute of the sidenav.
    */
   setAttribute() {
-    const status: string = this.sidebar.dataset.status!;
+    const status: string = this.sidenav.dataset.status!;
 
-    this.sidebar.dataset.status = status === 'closed' ? 'opened' : 'closed';
+    this.sidenav.dataset.status = status === 'closed' ? 'opened' : 'closed';
   }
 
   /**
-   * Open the sidebar.
+   * Open the sidenav.
    */
   open() {
-    this.sidebar.style[this.align] = '0px';
+    this.sidenav.style[this.align] = '0px';
     this.setAttribute();
     this.showMask();
   }
 
   /**
-   * Close the sidebar.
+   * Close the sidenav.
    */
   close() {
-    this.sidebar.style[this.align] = `-${this.sidebar.offsetWidth}px`;
+    this.sidenav.style[this.align] = `-${this.sidenav.offsetWidth}px`;
     this.setAttribute();
     this.hideMask();
   }

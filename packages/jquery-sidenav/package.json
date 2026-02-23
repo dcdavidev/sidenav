@@ -4,13 +4,10 @@
   "description": "A simple side nav written in jquery",
   "keywords": [
     "jquery",
-    "jquery plugin",
-    "sidebar",
+    "jquery-plugin",
     "sidenav",
-    "simple sidebar",
-    "simple sidenav",
-    "simple-sidebar",
-    "simpler-sidebar"
+    "simple-sidenav",
+    "simpler-sidenav"
   ],
   "homepage": "https://github.com/dcdavidev/sidebar",
   "bugs": {
