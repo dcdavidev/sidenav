@@ -44,7 +44,7 @@
     "prettier-plugin-tailwindcss": "^0.7.2",
     "prettier-plugin-toml": "^2.0.6",
     "release-it": "^19.2.4",
-    "turbo": "^2.8.10"
+    "turbo": "^2.9.14"
   },
   "packageManager": "pnpm@10.30.1"
 }
